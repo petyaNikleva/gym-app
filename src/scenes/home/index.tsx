@@ -1,5 +1,5 @@
 import ActionButton from "@/shared/ActionButton";
-import { SelectedPage } from "@/shared/type";
+import { SelectedPage } from "@/shared/types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
