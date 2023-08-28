@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import Benefit from "./Benefit";
 import ActionButton from "@/shared/ActionButton";
 import BenefitsPageGraphic from "@/assets/BenefitsPageGraphic.png";
+import { usePageContext } from "@/context/usePageContext";
 
 const benefits: Array<BenefitType> = [
   {
@@ -35,12 +36,8 @@ const container = {
   }
 }
 
-
-type Props = {
-  setSelectedPage: (value: SelectedPage) => void;
-};
-
-const Benefits = ({ setSelectedPage }: Props) => {
+const Benefits = () => {
+  const { setSelectedPage} = usePageContext();
   return <section
     id="benefits"
     className="mx-auto min-h-full w-5/6 scroll-py-20"
@@ -79,7 +76,6 @@ const Benefits = ({ setSelectedPage }: Props) => {
             icon={benefit.icon}
             title={benefit.title}
             description={benefit.description}
-            setSelectedPage={setSelectedPage}
           />
         ))}
       </motion.div>
@@ -138,7 +134,7 @@ const Benefits = ({ setSelectedPage }: Props) => {
           {/* BUTTON */}
           <div className="relative mt-16">
             <div className="before:absolute before:-bottom-20 before:right-0 before:-[-1] before:content-sparkles">
-              <ActionButton setSelectedPage={setSelectedPage}>
+              <ActionButton >
                 Join Now
               </ActionButton>
             </div>

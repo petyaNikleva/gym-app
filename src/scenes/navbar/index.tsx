@@ -1,23 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import Logo from "@/assets/Logo.png";
 import Link from "./Link";
-import { SelectedPage } from "@/shared/types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import ActionButton from "@/shared/ActionButton";
+import { usePageContext } from "@/context/usePageContext";
+import { SelectedPage } from "@/shared/types";
 
 
-type Props = {
-  isTopOfPage: boolean;
-  selectedPage: SelectedPage;
-  setSelectedPage: (value: SelectedPage) => void;
-};
-
-const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
+const Navbar = () => {
+  const [isTopOfPage, setIsTopPage] = useState<boolean>(true);
+  const { setSelectedPage} = usePageContext();
   const flexBetween = "flex items-center justify-between";
   const [isMenuToggled, setIsMenuTogged] = useState<boolean>(false);
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
   const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow z-40"
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setIsTopPage(true);
+        setSelectedPage(SelectedPage.Home);
+      }
+      if (window.scrollY !== 0) setIsTopPage(false);
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [setSelectedPage]);
 
   return (
     <nav>
@@ -34,30 +43,14 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
             {isAboveMediumScreens ? (
               <div className={`${flexBetween} w-full `}>
                 <div className={`${flexBetween} gap-8 text-sm `}>
-                  <Link
-                    page="Home"
-                    selectedPage={selectedPage}
-                    setSelectedPage={setSelectedPage}
-                  />
-                  <Link
-                    page="Benefits"
-                    selectedPage={selectedPage}
-                    setSelectedPage={setSelectedPage}
-                  />
-                  <Link
-                    page="Our Classes"
-                    selectedPage={selectedPage}
-                    setSelectedPage={setSelectedPage}
-                  />
-                  <Link
-                    page="Contact us"
-                    selectedPage={selectedPage}
-                    setSelectedPage={setSelectedPage}
-                  />
+                  <Link page="Home"/>
+                  <Link page="Benefits"/>
+                  <Link page="Our Classes" />
+                  <Link page="Contact us"/>
                 </div>
                 <div className={`${flexBetween} gap-8`}>
                   <p>Sign in</p>
-                  <ActionButton setSelectedPage={setSelectedPage}>
+                  <ActionButton>
                     Become a Member
                   </ActionButton>
                 </div>
@@ -89,23 +82,15 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
         <div className="ml-[33%] flex flex-col gap-10 text-2xl">
                   <Link
                     page="Home"
-                    selectedPage={selectedPage}
-                    setSelectedPage={setSelectedPage}
                   />
                   <Link
                     page="Benefits"
-                    selectedPage={selectedPage}
-                    setSelectedPage={setSelectedPage}
                   />
                   <Link
                     page="Our Classes"
-                    selectedPage={selectedPage}
-                    setSelectedPage={setSelectedPage}
                   />
                   <Link
                     page="Contact us"
-                    selectedPage={selectedPage}
-                    setSelectedPage={setSelectedPage}
                   />
                 </div>
         </div>

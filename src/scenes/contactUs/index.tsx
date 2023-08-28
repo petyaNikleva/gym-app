@@ -1,24 +1,23 @@
+import React from 'react';
 import { useForm } from "react-hook-form";
 import { SelectedPage } from "@/shared/types";
 import { motion } from "framer-motion";
 import ContactUsPageGraphic from "@/assets/ContactUsPageGraphic.png";
 import HText from "@/shared/HText";
+import { usePageContext } from "@/context/usePageContext";
 
-type Props = {
-  setSelectedPage: (value: SelectedPage) => void;
-};
 
-const ContactUs = ({ setSelectedPage }: Props) => {
+const ContactUs = () => {
+  const { setSelectedPage} = usePageContext();
   const inputStyles = `mb-5 w-full rounded-lg bg-primary-300
   px-5 py-3 placeholder-white`;
-
   const {
     register,
     trigger,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (e: any) => {
+  const onSubmit = async (e: React.FormEvent) => {
     const isValid = await trigger();
     if (!isValid) {
       e.preventDefault();
@@ -67,7 +66,7 @@ const ContactUs = ({ setSelectedPage }: Props) => {
           >
             <form
               target="_blank"
-              onSubmit={onSubmit}
+              onSubmit={(e) => onSubmit(e)}
               action="https://formsubmit.co/5de703980412d22bbd1d6d9a5c407edd"
               method="POST"
             >

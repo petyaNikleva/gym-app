@@ -1,3 +1,4 @@
+import { usePageContext } from "@/context/usePageContext";
 import { SelectedPage } from "@/shared/types";
 import { motion } from "framer-motion";
 import AnchorLink from "react-anchor-link-smooth-scroll";
@@ -11,10 +12,10 @@ type Props = {
   icon: JSX.Element,
   title: string,
   description: string,
-  setSelectedPage: (value: SelectedPage) => void;
 };
 
-const Benefit = ({ icon, title, description, setSelectedPage }: Props) => {
+const Benefit = ({ icon, title, description }: Props) => {
+  const { setSelectedPage} = usePageContext();
   return (
     <motion.div
     variants={childVariant}

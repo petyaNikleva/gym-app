@@ -9,6 +9,7 @@ import image6 from "@/assets/image6.png";
 import { motion } from "framer-motion";
 import HText from "@/shared/HText";
 import Class from "./Class";
+import { usePageContext } from "@/context/usePageContext";
 
 const classes: Array<ClassType> = [
   {
@@ -40,14 +41,11 @@ const classes: Array<ClassType> = [
     name: "Yoga Traing Classes",
     image: image6,
   },
-
 ]
 
-type Props = {
-  setSelectedPage: (value: SelectedPage) => void;
-};
 
-const OurClasses = ({ setSelectedPage }: Props) => {
+const OurClasses = () => {
+  const { setSelectedPage } = usePageContext();
   return (
     <section id="ourclasses" className="w-full bg-primary-100 py-40">
       <motion.div

@@ -4,18 +4,18 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
 import HomePageText from "@/assets/HomePageText.png";
-import HomePageGraphic from "@/assets/HomePageGraphic.png";
+// import HomePageGraphic from "@/assets/HomePageGraphic.png";
+import HomePageGraphic from "@/assets/nice-removebg-preview.png";
+
 import SponsorRedBull from "@/assets/SponsorRedBull.png";
 import SponsorForbes from "@/assets/SponsorForbes.png";
 import SponsorFurtune from "@/assets/SponsorFortune.png";
 import { motion } from "framer-motion";
+import { usePageContext } from "@/context/usePageContext";
 
-
-type Props = {
-  setSelectedPage: (value: SelectedPage) => void;
-};
-
-const Home = ({ setSelectedPage }: Props) => {
+const Home = () => {
+  // GymWave
+   const { setSelectedPage} = usePageContext();
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
 
   return <section id="home" className="gap-16 bg-gray-20 py-10 md:h-full md:pb-0">
@@ -48,6 +48,7 @@ const Home = ({ setSelectedPage }: Props) => {
           </p>
         </motion.div>
         {/* Actions -> Buttons*/}
+
         <motion.div
           className="mt-8 flex items-center gap-8"
           initial="hidden"
@@ -59,7 +60,7 @@ const Home = ({ setSelectedPage }: Props) => {
             visible: { opacity: 1, x: 0 },
           }}
         >
-          <ActionButton setSelectedPage={setSelectedPage}>
+          <ActionButton>
             Join Now
           </ActionButton>
           <AnchorLink
